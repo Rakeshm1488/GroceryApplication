@@ -2,20 +2,20 @@ package com.example.groceryapplication.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.groceryapplication.models.GroceryItem
+import com.example.groceryapplication.models.Users
 
 @Dao
 interface ItemDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addItem(item: GroceryItem)
+    fun addItem(item: Users)
 
-    @Query("Select * from GroceryItem")
-    fun getAllItems(): LiveData<List<GroceryItem>>
+    @Query("Select * from Users")
+    fun getAllItems(): LiveData<List<Users>>
 
     @Update
-    fun updateItem(item: GroceryItem)
+    fun updateItem(item: Users)
 
     @Delete
-    fun deleteItem(item: GroceryItem)
+    fun deleteItem(item: Users)
 }

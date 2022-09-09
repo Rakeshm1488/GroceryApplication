@@ -8,38 +8,39 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.example.groceryapplication.R
+import com.example.groceryapplication.databinding.CartListItemBinding
 import com.example.groceryapplication.databinding.ListItemBinding
-import com.example.groceryapplication.models.ResultList
+import com.example.groceryapplication.models.CartItem
 import com.example.groceryapplication.models.ProductListItem
 import com.example.groceryapplication.util.AppLog
 
 
-class GroceryItemAdapter(
-    addItemClickInterface: AddItemClickInterface
-): RecyclerView.Adapter<ItemViewHolder>() {
+class GroceryCartItemAdapter(
+    deleteItemClickInterface: DeleteItemClickInterface
+): RecyclerView.Adapter<CartItemViewHolder>() {
 
-    private var itemList: List<ProductListItem> = listOf()
+    private var itemList: List<CartItem> = listOf()
 
-    private var itemAddInterface = addItemClickInterface
+    private var itemAddInterface = deleteItemClickInterface
 
     var requestOptions = RequestOptions()
         .diskCacheStrategy(DiskCacheStrategy.NONE) // because file name is always same
         .skipMemoryCache(true)
         .signature(ObjectKey(System.currentTimeMillis()))
 
-    fun setGroceryItems(itemList: List<ProductListItem>) {
-        AppLog.d("Adapter list: ${itemList.size}")
+    fun setGroceryItems(itemList: List<CartItem>) {
+        AppLog.d("Cart Adapter list: ${itemList.size}")
         this.itemList = itemList
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val listItemBinding = ListItemBinding.inflate(inflater, parent, false)
-        return ItemViewHolder(listItemBinding)
+        val listItemBinding = CartListItemBinding.inflate(inflater, parent, false)
+        return CartItemViewHolder(listItemBinding)
     }
 
-    override fun onBindViewHolder(holderItem: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holderItem: CartItemViewHolder, position: Int) {
         val item = itemList[position]
         holderItem.binding.listItem = item
 
@@ -51,13 +52,9 @@ class GroceryItemAdapter(
 //            .apply(requestOptions)
             .into(holderItem.binding.itemImage)
 
-        holderItem.binding.listItemAdd.setImageResource(
-            if(item.isNew) R.drawable.ic_add_24 else R.drawable.ic_edit_24
-        )
-
-        holderItem.binding.listItemAdd.setOnClickListener {
+        holderItem.binding.cartItemDelete.setOnClickListener {
             AppLog.d("item to update is: $item")
-            itemAddInterface.onAddClick(item.pID)
+            itemAddInterface.onDeleteClick(item)
         }
 
     }
@@ -67,9 +64,8 @@ class GroceryItemAdapter(
     }
 }
 
-class ItemViewHolder(val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root)
+class CartItemViewHolder(val binding: CartListItemBinding): RecyclerView.ViewHolder(binding.root)
 
-interface AddItemClickInterface{
-    fun onAddClick(pid: Int)
-    fun onAddClick(productItem: ProductListItem)
+interface DeleteItemClickInterface{
+    fun onDeleteClick(cartItem: CartItem)
 }

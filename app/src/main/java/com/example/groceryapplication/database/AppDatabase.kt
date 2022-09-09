@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.groceryapplication.models.GroceryItem
+import com.example.groceryapplication.models.Users
 
-@Database(entities = [GroceryItem::class], version = 1, exportSchema = false)
+@Database(entities = [Users::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun itemDAO(): ItemDAO
@@ -15,15 +15,18 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase {
-            return (INSTANCE ?: synchronized(AppDatabase::class) {
-                val instance = Room.databaseBuilder(
-                    context,
-                    AppDatabase::class.java,
-                    "GroceryItemsInfo"
-                ).build()
-                INSTANCE = instance
-                INSTANCE
-            }) as AppDatabase
+
+            if (INSTANCE == null) {
+                synchronized(this) {
+                    INSTANCE = Room.databaseBuilder(
+                        context,
+                        AppDatabase::class.java,
+                        "GroceryItemsInfo"
+                    ).build()
+                }
+            }
+
+            return INSTANCE!!
         }
 
         fun destroyInstance() {

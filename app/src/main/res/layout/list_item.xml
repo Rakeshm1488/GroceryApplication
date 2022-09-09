@@ -7,7 +7,7 @@
 
         <variable
             name="listItem"
-            type="com.example.groceryapplication.models.GroceryItem" />
+            type="com.example.groceryapplication.models.ProductListItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,11 +26,11 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/list_item_name"
+            android:id="@+id/cart_item_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{listItem.itemName}"
+            android:text="@{listItem.PName}"
             android:textAlignment="viewStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/list_item_quantity"
@@ -44,14 +44,14 @@
             android:id="@+id/list_item_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintHorizontal_weight="0.5"
             android:layout_marginStart="10dp"
-            android:text="@{String.valueOf(listItem.itemQuantity)}"
+            android:text=""
             android:textAlignment="viewStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/list_item_price"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@+id/list_item_name"
+            app:layout_constraintStart_toEndOf="@+id/cart_item_name"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_optimizationLevel="chains" />
 
@@ -59,39 +59,27 @@
             android:id="@+id/list_item_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintHorizontal_weight="1"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:text="@{String.valueOf(listItem.itemPrice)}"
+            android:text="@{String.valueOf(listItem.PPrice)}"
             android:textAlignment="viewStart"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/list_item_update"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_add"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/list_item_quantity"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_optimizationLevel="chains" />
 
         <ImageView
-            android:id="@+id/list_item_update"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/list_item_delete"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit_24"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/list_item_delete"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
+            android:id="@+id/list_item_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete_24"
+            app:srcCompat="@drawable/ic_add_24"
             tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

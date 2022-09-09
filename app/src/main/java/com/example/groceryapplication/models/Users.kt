@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 @Entity
-data class GroceryItem(
+data class Users(
     var itemName: String,
     var itemQuantity: Int,
     var itemPrice: Float

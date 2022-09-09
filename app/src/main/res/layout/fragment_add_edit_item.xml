@@ -7,7 +7,7 @@
 
         <variable
             name="groceryItem"
-            type="com.example.groceryapplication.models.GroceryItem" />
+            type="com.example.groceryapplication.models.CartItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
         tools:context=".views.AddEditItemActivity">
 
         <TextView
-            android:id="@+id/editNote_heading"
+            android:id="@+id/editItem_heading"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -40,13 +40,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editNote_heading">
+            app:layout_constraintTop_toBottomOf="@+id/editItem_heading">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/item_name_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{groceryItem.itemName}"/>
+                android:text="@{groceryItem.PName}"
+                android:textColorHint="#616161" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Base price"
+            app:errorContentDescription="Please enter Quantity"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/item_amount_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(groceryItem.PPrice)}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -59,42 +79,44 @@
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_name">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/item_quantity_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(groceryItem.itemQuantity)}"/>
+                android:text="@{String.valueOf(groceryItem.PQuantity)}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
+            android:id="@+id/textInputLayout5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Amount"
+            android:hint="Total Amount"
             app:errorContentDescription="Please enter Quantity"
             app:errorEnabled="true"
+            app:layout_constraintBottom_toTopOf="@+id/submit_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_amount_edittext"
+                android:id="@+id/item_total_amount_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(groceryItem.itemPrice)}"/>
+                android:text="@{String.valueOf(groceryItem.PTotalPrice)}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="10dp"
             android:text="Add/Edit"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
