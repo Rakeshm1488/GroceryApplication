@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import com.example.groceryapplication.apibase.ApiService
 import com.example.groceryapplication.database.AppDatabase
 import com.example.groceryapplication.repositories.ItemRepository
 import com.example.groceryapplication.util.AppLog
+import com.example.groceryapplication.util.NetworkCheck
 import com.example.groceryapplication.viewmodels.GroceryViewModel
 import com.example.groceryapplication.viewmodels.GroceryViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -49,8 +51,12 @@ class GroceryHomeActivity : AppCompatActivity(), GroceryFactoryInterface {
     }
 
     private fun initializeData() {
-        lifecycleScope.launch(Dispatchers.IO){
-            groceryViewModel.getAllProducts()
+        if(NetworkCheck.hasNetworkAvailable(this)) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                groceryViewModel.getAllProducts()
+            }
+        } else {
+            Toast.makeText(this, "No Internet", Toast.LENGTH_SHORT).show()
         }
     }
 
